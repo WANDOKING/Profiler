@@ -1,4 +1,4 @@
-// version 1.0.0
+// version 1.0.1
 #include <cassert>
 #include <iostream>
 #include <cstring>
@@ -91,7 +91,7 @@ void ProfileDataOutText(const WCHAR* fileName)
 		float max = (float)(g_profilingDatas[i].ElapsedTimeMax.QuadPart * 1000000) / frequency.QuadPart;
 		LONGLONG sumExcludingOutliers = g_profilingDatas[i].ElapsedTimeSum.QuadPart - g_profilingDatas[i].ElapsedTimeMax.QuadPart - g_profilingDatas[i].ElapsedTimeMin.QuadPart;
 		float average = (float)((sumExcludingOutliers / (g_profilingDatas[i].CallCount - 2)) * 1000000) / frequency.QuadPart;
-		fprintf_s(file, "%32ls | %18.4f¥ìs | %18.4f¥ìs | %18.4f¥ìs | %20lld |\n", g_profilingDatas[i].Tag, average, min, max, g_profilingDatas[i].CallCount);
+		fprintf_s(file, "%32ls | %18.4fmicrosecs | %18.4fmicrosecs | %18.4fmicrosecs | %20lld |\n", g_profilingDatas[i].Tag, average, min, max, g_profilingDatas[i].CallCount);
 	}
 
 	fwprintf_s(file, L"------------------------------------------------------------------------------------------------------------------------------\n");
