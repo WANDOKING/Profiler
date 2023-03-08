@@ -1,4 +1,4 @@
-// version 1.0.0
+// version 1.0.2
 #pragma once
 
 #include <winnt.h>
@@ -6,7 +6,7 @@
 #define MAX_PROFILING_DATA_COUNT 50
 #define MAX_TAG_LENGTH 32
 
-/*************************** HOT TO USE ***************************/ 
+/*************************** HOT TO USE ***************************/
 // ProfileBegin(L"test");
 // ...
 // ProfileEnd(L"test");

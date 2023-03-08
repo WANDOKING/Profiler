@@ -1,4 +1,4 @@
-// version 1.0.1
+// version 1.0.2
 #include <cassert>
 #include <iostream>
 #include <cstring>
@@ -75,15 +75,14 @@ void ProfileDataOutText(const WCHAR* fileName)
 	LARGE_INTEGER frequency;
 	QueryPerformanceFrequency(&frequency);
 
-	if (_wfopen_s(&file, fileName, L"w") == EINVAL)
+	if (_wfopen_s(&file, fileName, L"w") == EINVAL || file == nullptr)
 	{
-		assert(false);
+		return;
 	}
 
-	assert(file != 0);
-	fprintf_s(file, "------------------------------------------------------------------------------------------------------------------------------\n");
-	fprintf_s(file, "%32s | %20s | %20s | %20s | %20s |\n", "Name", "Average", "Min", "Max", "Call");
-	fprintf_s(file, "------------------------------------------------------------------------------------------------------------------------------\n");
+	fprintf_s(file, "-----------------------------------------------------------------------------------------------------------------------------------------\n");
+	fprintf_s(file, "%32s | %25s | %25s | %25s | %16s |\n", "Name", "Average", "Min", "Max", "Call");
+	fprintf_s(file, "-----------------------------------------------------------------------------------------------------------------------------------------\n");
 
 	for (size_t i = 0; i < g_profilingDataCount; ++i)
 	{
@@ -91,10 +90,10 @@ void ProfileDataOutText(const WCHAR* fileName)
 		float max = (float)(g_profilingDatas[i].ElapsedTimeMax.QuadPart * 1000000) / frequency.QuadPart;
 		LONGLONG sumExcludingOutliers = g_profilingDatas[i].ElapsedTimeSum.QuadPart - g_profilingDatas[i].ElapsedTimeMax.QuadPart - g_profilingDatas[i].ElapsedTimeMin.QuadPart;
 		float average = (float)((sumExcludingOutliers / (g_profilingDatas[i].CallCount - 2)) * 1000000) / frequency.QuadPart;
-		fprintf_s(file, "%32ls | %18.4fmicrosecs | %18.4fmicrosecs | %18.4fmicrosecs | %20lld |\n", g_profilingDatas[i].Tag, average, min, max, g_profilingDatas[i].CallCount);
+		fprintf_s(file, "%32ls | %16.4fmicrosecs | %16.4fmicrosecs | %16.4fmicrosecs | %16lld |\n", g_profilingDatas[i].Tag, average, min, max, g_profilingDatas[i].CallCount);
 	}
 
-	fwprintf_s(file, L"------------------------------------------------------------------------------------------------------------------------------\n");
+	fwprintf_s(file, L"-----------------------------------------------------------------------------------------------------------------------------------------\n");
 	fclose(file);
 }
 
