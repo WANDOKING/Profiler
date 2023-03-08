@@ -1,4 +1,4 @@
-// version 1.0.2
+// version 1.1.0
 #pragma once
 
 #include <winnt.h>
@@ -7,10 +7,10 @@
 #define MAX_TAG_LENGTH 32
 
 /*************************** HOT TO USE ***************************/
-// ProfileBegin(L"test");
+// PROFILE_BEGIN(L"test");
 // ...
-// ProfileEnd(L"test");
-// ProfileDataOutText(L"profile_result.txt");
+// PROFILE_END(L"test");
+// PROFILE_SAVE(L"profile_result.txt");
 /******************************************************************/
 
 void ProfileBegin(const WCHAR* tag); // call this function at the starting point
@@ -23,9 +23,11 @@ void ProfileReset(void);
 #ifdef PROFILE_ON
 #define PROFILE_BEGIN(Tag) ProfileBegin(Tag)
 #define PROFILE_END(Tag) ProfileEnd(Tag)
+#define PROFILE_SAVE(fileName) ProfileDataOutText(fileName)
 
 #else
 #define PROFILE_BEGIN(Tag)
 #define PROFILE_END(Tag) 
+#define PROFILE_SAVE(fileName)
 
 #endif

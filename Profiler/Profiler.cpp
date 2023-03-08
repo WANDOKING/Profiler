@@ -1,4 +1,4 @@
-// version 1.0.2
+// version 1.1.0
 #include <cassert>
 #include <iostream>
 #include <cstring>
@@ -15,6 +15,8 @@ struct ProfilingData
 	LARGE_INTEGER LastBeginTick;
 	DWORD64 CallCount;
 };
+
+#ifdef PROFILE_ON
 
 static ProfilingData g_profilingDatas[MAX_PROFILING_DATA_COUNT];
 static size_t g_profilingDataCount = 0;
@@ -101,3 +103,5 @@ void ProfileReset(void)
 {
 	g_profilingDataCount = 0;
 }
+
+#endif

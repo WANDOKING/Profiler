@@ -42,5 +42,5 @@ int main(void)
 		PROFILE_END(L"HelloWorld");
 	}
 
-	ProfileDataOutText(L"profile_test.txt");
+	PROFILE_SAVE(L"profile_test.txt");
 }
